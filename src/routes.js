@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
+import Home from './pages/Home';
+
 import { isAuth } from './services/auth';
 
 const PrivateRoute = ({ children }) => {
@@ -12,10 +14,10 @@ const RoutesDOM = () => (
       <Route index path="/" element={<Login />} />
       <Route path="/signup" element={<h1>SignUp</h1>} />
       <Route
-        path="/app"
+        path="/Home"
         element={
           <PrivateRoute>
-            <h1>App</h1>
+            <Home />
           </PrivateRoute>
         }
       />
