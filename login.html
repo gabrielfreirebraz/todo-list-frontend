@@ -31,7 +31,7 @@
                   placeholder="E-mail"
                   type="email"
                   class="form-control"
-                  id="exampleInputEmail1"
+                  id="email"
                   aria-describedby="emailHelp"
            
                 />
@@ -41,7 +41,7 @@
                   placeholder="Password"
                   type="password"
                   class="form-control"
-                  id="exampleInputPassword1"
+                  id="password"
          
                 />
               </div>
@@ -75,12 +75,18 @@
         var passwordTyped = $("#password").val();
         var BASE_URI = "https://bolttech-todo.herokuapp.com/auth/signin";
         
-        
+        if ($.trim(emailTyped) == '' || $.trim(passwordTyped) == '') {
+          alert("Invalid values!");
+          return false;
+        }
+
+        console.log("Dados digitados:"+ emailTyped +" - "+passwordTyped );
 
         $.ajax({
             type: 'POST',
             crossDomain: true,
             url: BASE_URI,
+            data: {email: emailTyped, password: passwordTyped },
             // headers: {
             //   "Access-Control-Allow-Origin":"*",
             //   "Access-Control-Allow-Headers": "*",
@@ -89,23 +95,18 @@
             // },
             success: function (data, textStatus, xhr) {
               
-              if (xhr.status == 200) {
-                // Cookies.set('cpf', cpfDigitado, { expires: 7, path: './' });
-
-
-                window.location.href = $form.attr("action");
-              }
+              // console.log(xhr);
+              // console.log(data);
+              Cookies.set('user', JSON.stringify(data), { expires: 7, path: './' });
+              window.location.href = $form.attr("action");
+              
             },
             error: function (error) {
 
-              if (error.status == 404) {
-                // Cookies.set('cpf', cpfDigitado, { expires: 7, path: './' });
-                console.log("Cliente com primeiro acesso a app!");
-                
-                window.location.href = $form.attr("action");
-              } else {
-                console.log("Erro "+error.status);
-              }
+              if (error.status == 400) {
+                alert("User not found");                
+              } 
+              console.log("Erro "+error.status);
             }
         })
 
