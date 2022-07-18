@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
+    <title>Bolltech</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link href="./login.css" rel="stylesheet">
+  </head>
+
+
+  <body>
+
+    <main>
+        <div id="container">
+          <div id="leftLogo">
+            <img src="./images/logo-bolttech.png" alt="" />
+          </div>
+    
+          <div id="formLogin">
+            <form id="form" action="./index.html" method="post">
+              <h3>Sign In</h3>
+    
+              <br />
+              <div class="mb-3">
+                <input
+                  placeholder="E-mail"
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+           
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  placeholder="Password"
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+         
+                />
+              </div>
+    
+              <button type="submit" className="btn btn-dark">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+
+    </main>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js"></script>
+    <script src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+
+      
+
+
+      jQuery.support.cors = true;
+
+      $("#form").on("submit", function(){
+
+        var $form = $(this);
+        var emailTyped = $("#email").val();
+        var passwordTyped = $("#password").val();
+        var BASE_URI = "https://bolttech-todo.herokuapp.com/auth/signin";
+        
+        
+
+        $.ajax({
+            type: 'POST',
+            crossDomain: true,
+            url: BASE_URI,
+            // headers: {
+            //   "Access-Control-Allow-Origin":"*",
+            //   "Access-Control-Allow-Headers": "*",
+            //   "Access-Control-Allow-Methods": "POST, GET",
+            //   "Access-Control-Allow-Credentials": true
+            // },
+            success: function (data, textStatus, xhr) {
+              
+              if (xhr.status == 200) {
+                // Cookies.set('cpf', cpfDigitado, { expires: 7, path: './' });
+
+
+                window.location.href = $form.attr("action");
+              }
+            },
+            error: function (error) {
+
+              if (error.status == 404) {
+                // Cookies.set('cpf', cpfDigitado, { expires: 7, path: './' });
+                console.log("Cliente com primeiro acesso a app!");
+                
+                window.location.href = $form.attr("action");
+              } else {
+                console.log("Erro "+error.status);
+              }
+            }
+        })
+
+        return false;
+      });
+
+
+
+
+
+
+    </script>
+  </body>
+</html>
