@@ -3,16 +3,57 @@
 
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { Container, FormLogin, LeftLogo } from './styles';
+// import api from 'services/api';
+import axios from 'axios';
+
+// const api = axios.create({
+//   baseURL: 'https://bolttech-todo.herokuapp.com',
+//   headers: {
+//      '': ""
+//  }
+// });
 
 export default function Login() {
   const [getInputEmail, setInputEmail] = useState('');
   const [getInputPassword, setInputPassword] = useState('');
 
-  function makeRequest() {
-    if (getInputEmail === '' || getInputPassword === '')
+  async function makeRequest(e) {
+    // e.PreventDefault();
+
+    if (getInputEmail === '' || getInputPassword === '') {
       alert("The values can't be empty");
+      return false;
+    } else {
+      return false;
+    }
+
+    try {
+      // const response = await axios.post(
+      //   'https://bolttech-todo.herokuapp.com/auth/signin',
+      //   {
+      //     email: getInputEmail,
+      //     password: getInputPassword,
+      //   }
+      // );
+      const response = await axios({
+        method: 'post',
+        url: 'https://bolttech-todo.herokuapp.com/auth/signin',
+        data: {
+          email: getInputEmail,
+          password: getInputPassword,
+        },
+      });
+
+      console.log(response);
+      console.log(getInputEmail, getInputPassword);
+    } catch (error) {
+      alert('Error: ' + error.response);
+
+      // setInputEmail('');
+      // setInputPassword('');
+    }
+    return false;
   }
 
   return (
