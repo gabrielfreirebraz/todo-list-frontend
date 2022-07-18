@@ -1,0 +1,36 @@
+
+nav.bg-light {
+  /* background-color: #181050 !important; */
+}
+
+#navbarDropdown {
+  min-width: 100%;
+  float:right;
+}
+
+#new-project {
+  float: right;
+}
+
+.card {
+  margin: 50px;
+}
+
+
+.icons-project {
+  float: right;
+}
+
+.btn-primary {
+  background-color: #181050;
+  color:#fff;
+  border:solid 1px #181050;
+}
+.btn-primary:hover {
+  background: #181050;
+  opacity: 0.7;
+}
+
+.card-title {
+  color: #181050;
+}
