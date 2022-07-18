@@ -1,16 +1,24 @@
 // import { useParams } from 'react-router-dom';
+// import { Button } from 'react-bootstrap';
 
+import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from 'react-bootstrap';
 
 import { Container, FormLogin, LeftLogo } from './styles';
 
 export default function Login() {
+  const [getInputEmail, setInputEmail] = useState('');
+  const [getInputPassword, setInputPassword] = useState('');
+
+  function makeRequest() {
+    if (getInputEmail === '' || getInputPassword === '')
+      alert("The values can't be empty");
+  }
+
   return (
     <Container>
       <LeftLogo>
         <img src="./logo-bolttech.png" alt="" />
-        {/* <div id="logo"></div> */}
       </LeftLogo>
 
       <FormLogin>
@@ -25,6 +33,9 @@ export default function Login() {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              onChange={(e) => {
+                setInputEmail(e.target.value);
+              }}
             />
           </div>
           <div className="mb-3">
@@ -33,10 +44,13 @@ export default function Login() {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
+              onChange={(e) => {
+                setInputPassword(e.target.value);
+              }}
             />
           </div>
 
-          <button type="submit" className="btn btn-dark">
+          <button type="submit" className="btn btn-dark" onClick={makeRequest}>
             Submit
           </button>
         </form>

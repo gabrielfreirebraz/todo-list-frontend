@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Home from './pages/Home';
-
 import { isAuth } from './services/auth';
 
 const PrivateRoute = ({ children }) => {
